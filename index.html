@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Lewis & Daniella 💜</title>
+<title>Lewis & Daniella </title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {
@@ -49,7 +49,7 @@ button{background:#b266ff;color:white;font-weight:bold;cursor:pointer;}
 
 <!-- LOCK SCREEN -->
 <div id="lock" class="box">
-<h1>🔒 Private Friendship App</h1>
+<h1> Private Friendship App</h1>
 <input id="code" type="password" placeholder="Passcode">
 <br><button onclick="unlock()">Enter</button>
 </div>
@@ -57,23 +57,21 @@ button{background:#b266ff;color:white;font-weight:bold;cursor:pointer;}
 <!-- SURPRISE LETTER -->
 <div id="surprise">
     <div id="fireworksContainer"></div>
-    <h1>I love Daniella 💜</h1>
+    <h1>I love Daniella </h1>
     <div id="envelope">
-        <div style="font-size:40px;">✉️</div>
+        <div style="font-size:40px;"></div>
         <p style="font-size:14px;">Tap to open</p>
     </div>
     <div id="letter">
         <p>Dear Daniella,</p>
-        <p>Even though we haven’t met in person, your friendship means the world to me. I truly appreciate all the moments, chats, and laughs we’ve shared online. 💜</p>
-        <p>You’ve made a huge difference in my life, and I love having you as my friend.</p>
-        <p>— Lewis</p>
+        <p>Daniella, thank you for being an amazing friend  Thanks for always listening � by Lewis</p>
         <button onclick="closeLetter()">Close</button>
     </div>
 </div>
 
 <!-- APP -->
 <div id="app" class="box hidden">
-<h1>Lewis & Daniella 💜</h1>
+<h1>Lewis & Daniella </h1>
 
 <select id="user">
 <option>Lewis</option>
@@ -86,25 +84,25 @@ button{background:#b266ff;color:white;font-weight:bold;cursor:pointer;}
 <!-- Upload Buttons -->
 <h3>Upload Photos of Both</h3>
 <input type="file" id="photoFiles" multiple accept="image/*" hidden>
-<button onclick="photoFiles.click()">📸 Upload Photo</button>
+<button onclick="photoFiles.click()"> Upload Photo</button>
 
 <h3>Upload Videos</h3>
 <input type="file" id="videoFiles" multiple accept="video/*" hidden>
-<button onclick="videoFiles.click()">🎥 Upload Video</button>
+<button onclick="videoFiles.click()"> Upload Video</button>
 
 <!-- Gallery -->
 <div id="gallery" class="gallery"></div>
 
 <!-- Daniella Pictures + Sweet Words -->
-<h3>💜 Daniella & Sweet Words</h3>
+<h3> Daniella & Sweet Words</h3>
 <div id="daniella-section">
   <img src="https://via.placeholder.com/150x150.png?text=Daniella+1" class="daniella-pic">
   <div class="daniella-sweet">
-    Even online, your friendship lights up my days. Thank you for always being so supportive. 💜
+    I appreciate you  � by Lewis
   </div>
   <img src="https://via.placeholder.com/150x150.png?text=Daniella+2" class="daniella-pic">
   <div class="daniella-sweet">
-    I love our chats and laughs. You make the distance feel so small! 🌸
+    I appreciate you  � by Lewis
   </div>
 </div>
 
@@ -133,7 +131,7 @@ function unlock(){
         createBalloons();
         createFlowers();
         createFireworks();
-    } else alert("Wrong code 💔");
+    } else alert("Wrong code ");
 }
 
 // Upload Photos
@@ -214,7 +212,7 @@ function createFlowers(){
 function createFireworks(){
     for(let i=0;i<3;i++){
         const fw=document.createElement("div");
-        fw.innerText="🎆🎇✨";
+        fw.innerText="";
         fw.style.position="fixed";
         fw.style.top=Math.random()*80+"%";
         fw.style.left=Math.random()*80+"%";
