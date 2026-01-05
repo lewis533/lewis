@@ -1,0 +1,92 @@
+/* Body and phone layout */
+body {
+  background: #f3e8ff;
+  font-family: "Segoe UI", Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Phone-like container */
+.phone {
+  width: 360px;
+  height: 640px;
+  background: linear-gradient(135deg, #d6b3ff, #f3e8ff);
+  border-radius: 30px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  overflow: hidden;
+  position: relative;
+  padding: 0;
+}
+
+/* All screens inside the phone */
+.screen {
+  display: none;
+  padding: 30px;
+  text-align: center;
+  animation: fade 0.4s ease;
+  color: #4a2c6b; /* deep purple text */
+}
+
+.screen.active {
+  display: block;
+}
+
+.soft {
+  opacity: 0.8;
+}
+
+.message {
+  text-align: left;
+  line-height: 1.6;
+}
+
+/* Input fields */
+input {
+  width: 90%;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #9c6aff;
+  margin-top: 15px;
+}
+
+/* Buttons */
+button {
+  border: none;
+  background: #9c6aff;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 20px;
+  margin-top: 15px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #7f3fff;
+}
+
+/* Navigation bar at bottom */
+.nav {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: #d6b3ff;
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 0;
+  border-top: 1px solid #9c6aff;
+}
+
+.nav button {
+  background: none;
+  color: #4a2c6b;
+  font-size: 20px;
+}
+
+/* Fade animation */
+@keyframes fade {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

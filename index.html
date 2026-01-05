@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lewis & Daniella</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="phone">
+
+  <!-- LOCK SCREEN -->
+  <div id="lock" class="screen active">
+    <h2>🔒 Our Friendship Space</h2>
+    <p>Only Lewis & Daniella belong here</p>
+    <input type="password" id="password" placeholder="Secret code">
+    <button onclick="unlock()">Enter 💬</button>
+  </div>
+
+  <!-- HOME -->
+  <div id="home" class="screen">
+    <h1>Lewis & Daniella</h1>
+    <p class="soft">A private friendship app</p>
+  </div>
+
+  <!-- MEMORIES -->
+  <div id="memories" class="screen">
+    <h2>📸 Memories</h2>
+    <p>Add photos & videos (stay on your phone)</p>
+    <input type="file" accept="image/*,video/*" multiple>
+  </div>
+
+  <!-- NOTE -->
+  <div id="note" class="screen">
+    <h2>💬 A Message</h2>
+    <p class="message">
+      Daniella,<br><br>
+      I just want you to know how much I appreciate you as a friend.
+      You’ve been incredibly supportive, kind, and genuine, and that
+      means a lot to me.
+      <br><br>
+      Thank you for always being there, for listening, and for being
+      someone I can trust. Our conversations and shared moments have
+      made a real difference in my life.
+      <br><br>
+      I’m grateful for our friendship and for everything it represents.
+      <br><br>
+      — <strong>Lewis</strong>
+    </p>
+  </div>
+
+  <!-- NAV BAR -->
+  <div class="nav">
+    <button onclick="show('home')">🏠</button>
+    <button onclick="show('memories')">📸</button>
+    <button onclick="show('note')">💬</button>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
