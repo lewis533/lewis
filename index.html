@@ -1,175 +1,272 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lewis & Daniella Friendship App</title>
-
-<!-- Styles -->
-<style>
-body { margin:0; font-family:sans-serif; background:#e6d6ff; }
-
-.screen { display:none; padding:20px; }
-.screen.active { display:block; }
-
-h1,h2 { color:#6b1fa0; }
-
-.mem-image { width:120px; margin:5px; border-radius:8px; }
-.mem-video { width:200px; margin:5px; border-radius:8px; }
-
-.animations {
-  position:fixed; bottom:0; left:0;
-  width:100%; height:100%;
-  pointer-events:none;
-}
-.float {
-  position:absolute;
-  bottom:0;
-  font-size:2rem;
-  animation-name:floatup;
-  animation-timing-function:linear;
-}
-@keyframes floatup {
-  0% { transform: translateY(0); opacity:1; }
-  100% { transform: translateY(-100vh); opacity:0; }
-}
-
-.nav {
-  position:fixed;
-  bottom:0; width:100%;
-  background:#9c6aff;
-  display:flex; justify-content:space-around;
-  padding:10px;
-}
-.nav button { font-size:1.5rem; background:none; border:none; color:white; }
-.message { font-size:1.1rem; color:#4b0082; }
-input, button { padding:8px; font-size:1rem; margin-top:10px; border-radius:5px; border:1px solid #6b1fa0; }
-button { background:#9c6aff; color:white; cursor:pointer; }
-</style>
-
-<!-- Manifest & Icon -->
+<title>Lewis & Daniella </title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="manifest" href="manifest.json">
-<link rel="icon" href="icon.png" type="image/png">
-<link rel="apple-touch-icon" href="icon.png">
-<meta name="theme-color" content="#9c6aff">
+<meta name="theme-color" content="#4b0082">
 
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<style>
+body{margin:0;background:linear-gradient(135deg,#1a0033,#4b0082);font-family:Arial;color:white;text-align:center}
+.hidden{display:none}
+h1,h3{color:#ffb3ff}
+.box{max-width:900px;margin:auto;padding:20px}
+button,input,select{padding:10px;border-radius:10px;border:none;margin:6px}
+button{background:#b266ff;color:white;font-weight:bold}
+.tabs{margin-bottom:10px}
+.tabs button{background:#8000ff;color:white;padding:8px 12px;border-radius:8px}
+.gallery{display:flex;flex-wrap:wrap;gap:18px;justify-content:center}
+.card{max-width:180px;position:relative}
+img,video{max-width:180px;border-radius:12px}
+.delete{position:absolute;top:4px;right:4px;background:rgba(0,0,0,.6);border-radius:50%;padding:4px 7px;cursor:pointer}
+.label{position:absolute;bottom:4px;left:4px;background:rgba(0,0,0,.6);padding:3px 6px;border-radius:8px;font-size:12px}
+.reacts{display:flex;justify-content:center;gap:6px;margin-top:4px}
+.react{cursor:pointer;font-size:14px}
+
+/* COMMENTS */
+.comments{background:rgba(0,0,0,.25);border-radius:10px;margin-top:6px;padding:6px;font-size:13px;width:180px}
+.comment{text-align:left;margin-bottom:6px}
+.comment span{color:#ffb3ff;font-weight:bold}
+.reply{margin-left:14px;font-size:12px;opacity:.9}
+.input-row{display:flex;gap:4px;margin-top:4px}
+.input-row input{flex:1;padding:6px;border-radius:8px;border:none}
+.input-row button{padding:6px 8px}
+
+/* CHAT */
+#chatTab{max-width:900px;margin:auto;text-align:left;font-size:14px;background:rgba(0,0,0,.15);border-radius:12px;padding:10px}
+#chatTab p{margin:2px 0}
+#msgInput{width:70%;padding:6px;border-radius:8px;border:none}
+</style>
 </head>
+
 <body>
 
-<div class="app">
-
-  <!-- Background music -->
-  <audio id="bgMusic" loop>
-    <source src="music.mp3" type="audio/mpeg">
-  </audio>
-
-  <!-- LOCK SCREEN -->
-  <div id="lock" class="screen active">
-    <h2> Friendship App</h2>
-    <input type="password" id="password" placeholder="Secret code">
-    <button onclick="unlock()">Enter </button>
-  </div>
-
-  <!-- HOME SCREEN -->
-  <div id="home" class="screen">
-    <h1>Welcome Lewis & Daniella</h1>
-    <p> Our Private Friendship App </p>
-  </div>
-
-  <!-- MEMORIES -->
-  <div id="memories" class="screen">
-    <h2> Memories</h2>
-    <input type="file" id="fileInput" accept="image/*,video/*" multiple>
-    <div id="gallery"></div>
-  </div>
-
-  <!-- SWEET WORDS -->
-  <div id="note" class="screen">
-    <h2> A Special Message</h2>
-    <div class="message">
-      Daniella,<br><br>
-      You are the most amazing friend I could ever ask for. <br>
-      Thank you for always being there for me, listening, and bringing joy to my life.<br>
-      I treasure every moment we share. <br>
-      I can’t imagine life without our friendship. You truly make my days brighter.<br><br>
-      — <strong>Lewis</strong>
-    </div>
-  </div>
-
-  <!-- NAVIGATION -->
-  <div class="nav">
-    <button onclick="show('home')"></button>
-    <button onclick="show('memories')"></button>
-    <button onclick="show('note')"></button>
-  </div>
-
-  <!-- FLOATING BALLOONS & FLOWERS -->
-  <div class="animations"></div>
-
+<!-- LOCK -->
+<div id="lock" class="box">
+<h1> Private Friendship App</h1>
+<input id="code" type="password" placeholder="Passcode">
+<br><button onclick="unlock()">Enter</button>
 </div>
 
-<!-- Scripts -->
+<!-- APP -->
+<div id="app" class="box hidden">
+<h1>Lewis & Daniella </h1>
+<h3 id="counter"></h3>
+
+<select id="user">
+<option>Lewis</option>
+<option>Daniella</option>
+</select><br>
+
+<div class="tabs">
+<button onclick="showTab('gallery')"> Gallery</button>
+<button onclick="showTab('chat')"> Chat</button>
+</div>
+
+<input type="file" id="camera" accept="image/*" capture="environment" hidden>
+<input type="file" id="files" multiple accept="image/*,video/*" hidden>
+
+<button onclick="camera.click()"> Take Photo</button>
+<button onclick="files.click()"> Upload</button>
+<button onclick="recordVoice()"> Voice Note</button>
+
+<div id="gallery" class="gallery"></div>
+<div id="chatTab" class="hidden"></div>
+<div style="text-align:center;margin-top:6px;">
+  <input id="msgInput" placeholder="Send a chat message"><button onclick="sendMsg()">Send</button>
+</div>
+</div>
+
 <script>
-document.addEventListener("DOMContentLoaded", () => {
+/* FIREBASE CONFIG */
+const firebaseConfig={
+apiKey:"PASTE_HERE",
+authDomain:"PASTE_HERE",
+projectId:"PASTE_HERE",
+storageBucket:"PASTE_HERE",
+messagingSenderId:"PASTE_HERE",
+appId:"PASTE_HERE"
+};
+firebase.initializeApp(firebaseConfig);
+const storage=firebase.storage();
+const db=firebase.firestore();
+db.enablePersistence();
 
-  // ===== LOCK SCREEN =====
-  function unlock() {
-    const password = document.getElementById("password").value;
-    if(password === "1234") { // unlock code
-      document.getElementById("lock").classList.remove("active");
-      document.getElementById("home").classList.add("active");
-      document.getElementById("bgMusic").play();
-    } else {
-      alert("Wrong code!");
-    }
-  }
-  window.unlock = unlock;
+const gallery=document.getElementById("gallery");
+const chat=document.getElementById("chatTab");
+const counter=document.getElementById("counter");
+const code=document.getElementById("code");
+const app=document.getElementById("app");
+const user=document.getElementById("user");
+const camera=document.getElementById("camera");
+const files=document.getElementById("files");
+const msgInput=document.getElementById("msgInput");
 
-  // ===== NAVIGATION =====
-  function show(screenId) {
-    document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
-    document.getElementById(screenId).classList.add("active");
-  }
-  window.show = show;
+/* PASSCODE */
+const SECRET="Daniella";
+function unlock(){
+if(code.value===SECRET){
+lock.style.display="none";
+app.classList.remove("hidden");
+Notification.requestPermission();
+} else alert("Wrong code ");
+}
 
-  // ===== UPLOAD PHOTOS & VIDEOS =====
-  const fileInput = document.getElementById("fileInput");
-  const gallery = document.getElementById("gallery");
+/* FRIENDSHIP COUNTER */
+const start=new Date("2024-01-01");
+setInterval(()=>{
+const days=Math.floor((Date.now()-start)/86400000);
+counter.innerText=` Friendship: ${days} days`;
+},1000);
 
-  fileInput.addEventListener("change", (e) => {
-    gallery.innerHTML = ""; // clear previous
-    Array.from(e.target.files).forEach(file => {
-      const url = URL.createObjectURL(file);
-      if(file.type.startsWith("image/")) {
-        const img = document.createElement("img");
-        img.src = url;
-        img.className = "mem-image";
-        gallery.appendChild(img);
-      } else if(file.type.startsWith("video/")) {
-        const video = document.createElement("video");
-        video.src = url;
-        video.controls = true;
-        video.className = "mem-video";
-        gallery.appendChild(video);
-      }
-    });
-  });
+/* TABS */
+function showTab(tab){
+gallery.style.display=tab==="gallery"?"flex":"none";
+chat.classList.toggle("hidden",tab!=="chat");
+}
 
-  // ===== FLOATING BALLOONS & FLOWERS =====
-  const animations = document.querySelector(".animations");
-  function createFloat() {
-    const elem = document.createElement("div");
-    elem.className = "float";
-    elem.style.left = Math.random() * 100 + "vw";
-    elem.style.animationDuration = (4 + Math.random() * 4) + "s";
-    elem.innerText = Math.random() > 0.5 ? "" : "";
-    animations.appendChild(elem);
-    setTimeout(() => animations.removeChild(elem), 8000);
-  }
-  setInterval(createFloat, 800);
-
+/* UPLOAD FILE */
+function uploadFile(file){
+const name=user.value;
+const ref=storage.ref("memories/"+Date.now()+"_"+file.name);
+ref.put(file).then(s=>s.ref.getDownloadURL())
+.then(url=>{
+db.collection("uploads").add({
+url,type:file.type,user:name,path:ref.fullPath,reacts:{}
 });
-</script>
+if(Notification.permission==="granted"){
+new Notification(" New Memory",{body:`${name} posted a photo`});
+}
+});
+}
+camera.onchange=e=>uploadFile(e.target.files[0]);
+files.onchange=e=>[...e.target.files].forEach(uploadFile);
 
+/* VOICE NOTES */
+let recorder,audioChunks=[];
+async function recordVoice(){
+const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+recorder=new MediaRecorder(stream);
+audioChunks=[];
+recorder.ondataavailable=e=>audioChunks.push(e.data);
+recorder.onstop=()=>{
+const blob=new Blob(audioChunks,{type:"audio/webm"});
+uploadFile(blob);
+};
+recorder.start();
+setTimeout(()=>recorder.stop(),6000);
+}
+
+/* REACTIONS */
+function react(id,emoji){
+const ref=db.collection("uploads").doc(id);
+ref.get().then(d=>{
+const r=d.data().reacts||{};
+r[emoji]=r[emoji]||[];
+if(!r[emoji].includes(user.value)) r[emoji].push(user.value);
+ref.update({reacts:r});
+});
+}
+
+/* COMMENTS & REPLIES */
+function addComment(postId,input){
+if(!input.value.trim())return;
+db.collection("uploads").doc(postId).collection("comments").add({
+user:user.value,text:input.value,time:Date.now()
+});
+input.value="";
+}
+function addReply(postId,commentId,input){
+if(!input.value.trim())return;
+db.collection("uploads").doc(postId).collection("comments").doc(commentId)
+.collection("replies").add({user:user.value,text:input.value,time:Date.now()});
+input.value="";
+}
+
+/* SEEN STATUS */
+function markSeen(docId){
+db.collection("uploads").doc(docId).collection("views")
+.doc(user.value).set({time:Date.now()});
+}
+
+/* PIN */
+let pinnedId=null;
+db.collection("settings").doc("pin").onSnapshot(s=>{
+pinnedId=s.data()?.postId||null;
+});
+
+/* DISPLAY */
+function show(doc){
+const d=doc.data();
+markSeen(doc.id);
+const card=document.createElement("div");card.className="card";
+let media=d.type.startsWith("video")?Object.assign(document.createElement("video"),{src:d.url,controls:true}):Object.assign(document.createElement("img"),{src:d.url});
+
+const del=document.createElement("div");
+del.className="delete";del.innerText="";
+del.onclick=()=>{storage.ref(d.path).delete();db.collection("uploads").doc(doc.id).delete();};
+
+const label=document.createElement("div");label.className="label";label.innerText=d.user;
+
+const reacts=document.createElement("div");reacts.className="reacts";
+["","","","",""].forEach(e=>{
+const r=document.createElement("span");r.className="react";r.innerText=e+" "+(d.reacts?.[e]?.length||0);r.onclick=()=>react(doc.id,e);reacts.appendChild(r);
+});
+
+/* SEEN VIEW */
+const seenDiv=document.createElement("div");seenDiv.style.fontSize="11px";
+db.collection("uploads").doc(doc.id).collection("views").onSnapshot(s=>{
+seenDiv.innerText=" Seen by: "+s.docs.map(x=>x.id).join(", ");
+});
+
+/* COMMENTS */
+const comments=document.createElement("div");comments.className="comments";
+const list=document.createElement("div");comments.appendChild(list);
+
+db.collection("uploads").doc(doc.id).collection("comments").orderBy("time").onSnapshot(s=>{
+list.innerHTML="";
+s.forEach(c=>{
+const cDiv=document.createElement("div");cDiv.className="comment";
+cDiv.innerHTML=`<span>${c.data().user}:</span> ${c.data().text}`;
+const replies=document.createElement("div");
+db.collection("uploads").doc(doc.id).collection("comments").doc(c.id)
+.collection("replies").orderBy("time").onSnapshot(rs=>{
+replies.innerHTML="";
+rs.forEach(r=>{const rDiv=document.createElement("div");rDiv.className="reply";rDiv.innerHTML=`<span>${r.data().user}:</span> ${r.data().text}`;replies.appendChild(rDiv);});
+});
+const rInput=document.createElement("input");rInput.placeholder="Reply…";
+const rBtn=document.createElement("button");rBtn.innerText="";rBtn.onclick=()=>addReply(doc.id,c.id,rInput);
+const rBox=document.createElement("div");rBox.className="input-row";rBox.append(rInput,rBtn);
+cDiv.append(replies,rBox);
+cDiv.oncontextmenu=e=>{e.preventDefault();const newText=prompt("Edit comment",c.data().text);if(newText)c.ref.update({text:newText});};
+list.appendChild(cDiv);
+});
+});
+
+const input=document.createElement("input");input.placeholder="Comment…";
+const send=document.createElement("button");send.innerText="";send.onclick=()=>addComment(doc.id,input);
+const box=document.createElement("div");box.className="input-row";box.append(input,send);
+comments.appendChild(box);
+
+if(doc.id===pinnedId) gallery.prepend(card); else gallery.appendChild(card);
+card.append(media,del,label,reacts,seenDiv,comments);
+}
+
+/* SNAPSHOT */
+db.collection("uploads").onSnapshot(s=>{gallery.innerHTML="";s.forEach(show);});
+
+/* CHAT TAB */
+function sendMsg(){if(!msgInput.value.trim())return;db.collection("chat").add({user:user.value,text:msgInput.value,time:Date.now()});msgInput.value="";}
+db.collection("chat").orderBy("time").onSnapshot(s=>{chat.innerHTML="";s.forEach(m=>{chat.innerHTML+=`<p><b>${m.data().user}:</b> ${m.data().text}</p>`;});});
+
+/* PWA */
+if("serviceWorker"in navigator){navigator.serviceWorker.register("sw.js");}
+</script>
 </body>
 </html>
