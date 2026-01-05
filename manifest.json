@@ -1,0 +1,15 @@
+{
+  "name": "Lewis & Daniella",
+  "short_name": "Friendship App",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#f3e8ff",
+  "theme_color": "#9c6aff",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}

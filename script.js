@@ -4,9 +4,16 @@ function unlock() {
   if (pass === "daniella") {
     document.getElementById("lock").classList.remove("active");
     show("home");
+
+    // Start floating balloons/flowers
     launchAnimations();
+
+    // Play background music
+    const music = document.getElementById("bgMusic");
+    music.volume = 0.4;
+    music.play().catch(() => console.log("Music will start after user interacts."));
   } else {
-    alert("Wrong code ðŸ’” Try again!");
+    alert("Wrong code  Try again!");
   }
 }
 
@@ -46,30 +53,27 @@ fileInput.addEventListener("change", function() {
     reader.readAsDataURL(file);
   }
 
-  // Clear input so you can add more files anytime
+  // Clear input to allow unlimited uploads
   fileInput.value = "";
 });
 
-// ===== BALLOONS & FLOWERS ANIMATION =====
+// ===== FLOATING BALLOONS & FLOWERS =====
 function launchAnimations() {
-  const balloonsDiv = document.querySelector(".balloons");
-  const flowersDiv = document.querySelector(".flowers");
+  const container = document.querySelector(".animations");
+  container.innerHTML = "";
 
-  // Create 10 balloons
-  for (let i = 0; i < 10; i++) {
-    const balloon = document.createElement("div");
-    balloon.className = "balloon";
-    balloon.style.left = Math.random() * 90 + "%";
-    balloon.style.animationDelay = Math.random() * 5 + "s";
-    balloonsDiv.appendChild(balloon);
-  }
+  const emojis = ["",""];
+  const total = 20;
 
-  // Create 10 flowers
-  for (let i = 0; i < 10; i++) {
-    const flower = document.createElement("div");
-    flower.className = "flower";
-    flower.style.left = Math.random() * 90 + "%";
-    flower.style.animationDelay = Math.random() * 5 + "s";
-    flowersDiv.appendChild(flower);
+  for (let i = 0; i < total; i++) {
+    const span = document.createElement("span");
+    span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    span.style.position = "absolute";
+    span.style.fontSize = Math.random() * 30 + 20 + "px"; // 20–50px
+    span.style.left = Math.random() * 90 + "%";
+    span.style.bottom = "-50px";
+    span.style.opacity = Math.random() * 0.7 + 0.3;
+    span.style.animation = `floatUp ${5 + Math.random() * 5}s linear infinite`;
+    container.appendChild(span);
   }
 }

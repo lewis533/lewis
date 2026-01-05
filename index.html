@@ -5,12 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lewis & Daniella</title>
   <link rel="stylesheet" href="style.css">
+
+  <!-- ICONS AND MANIFEST -->
+  <link rel="icon" href="icon.png" type="image/png">
+  <link rel="apple-touch-icon" href="icon.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#9c6aff">
 </head>
 <body>
 
 <div class="phone">
+
+  <!-- BACKGROUND MUSIC -->
+  <audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
 
   <!-- LOCK SCREEN -->
   <div id="lock" class="screen active">
@@ -46,16 +56,15 @@
     </p>
   </div>
 
-  <!-- NAV BAR -->
+  <!-- NAVIGATION BAR -->
   <div class="nav">
     <button onclick="show('home')"></button>
     <button onclick="show('memories')"></button>
     <button onclick="show('note')"></button>
   </div>
 
-  <!-- Balloons and Flowers -->
-  <div class="balloons"></div>
-  <div class="flowers"></div>
+  <!-- FLOATING BALLOONS & FLOWERS -->
+  <div class="animations"></div>
 
 </div>
 
