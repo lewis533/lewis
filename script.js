@@ -1,7 +1,7 @@
-// LOCK SCREEN
+// ===== LOCK SCREEN =====
 function unlock() {
   const password = document.getElementById("password").value;
-  if(password === "1234") {
+  if(password === "1234") { // Enter this code to unlock
     document.getElementById("lock").classList.remove("active");
     document.getElementById("home").classList.add("active");
     document.getElementById("bgMusic").play();
@@ -10,18 +10,18 @@ function unlock() {
   }
 }
 
-// NAVIGATION
+// ===== SCREEN NAVIGATION =====
 function show(screenId) {
   document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
   document.getElementById(screenId).classList.add("active");
 }
 
-// MEMORIES UPLOAD
+// ===== UPLOAD MULTIPLE PHOTOS & VIDEOS =====
 const fileInput = document.getElementById("fileInput");
 const gallery = document.getElementById("gallery");
 
 fileInput.addEventListener("change", (e) => {
-  gallery.innerHTML = ""; // Clear previous
+  gallery.innerHTML = ""; // clear previous items
   Array.from(e.target.files).forEach(file => {
     const url = URL.createObjectURL(file);
     if(file.type.startsWith("image/")) {
@@ -39,7 +39,7 @@ fileInput.addEventListener("change", (e) => {
   });
 });
 
-// FLOATING BALLOONS & FLOWERS
+// ===== FLOATING BALLOONS & FLOWERS =====
 const animations = document.querySelector(".animations");
 function createFloat() {
   const elem = document.createElement("div");
