@@ -1,69 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lewis & Daniella</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lewis & Daniella</title>
+<link rel="stylesheet" href="style.css">
 
-  <!-- ICONS AND MANIFEST -->
-  <link rel="icon" href="icon.png" type="image/png">
-  <link rel="apple-touch-icon" href="icon.png">
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#9c6aff">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.png" type="image/png">
+<link rel="apple-touch-icon" href="icon.png">
+<meta name="theme-color" content="#9c6aff">
 </head>
 <body>
 
-<div class="phone">
+<div class="app">
 
-  <!-- BACKGROUND MUSIC -->
+  <!-- Background music -->
   <audio id="bgMusic" loop>
     <source src="music.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
   </audio>
 
   <!-- LOCK SCREEN -->
   <div id="lock" class="screen active">
-    <h2> Our Friendship Space</h2>
-    <p>Only Lewis & Daniella belong here</p>
+    <h2> Friendship App</h2>
     <input type="password" id="password" placeholder="Secret code">
     <button onclick="unlock()">Enter </button>
   </div>
 
-  <!-- HOME -->
+  <!-- HOME SCREEN -->
   <div id="home" class="screen">
     <h1>Lewis & Daniella</h1>
-    <p class="soft">A private friendship app </p>
+    <p> Private Friendship App </p>
   </div>
 
   <!-- MEMORIES -->
   <div id="memories" class="screen">
     <h2> Memories</h2>
-    <input type="file" accept="image/*,video/*" multiple id="fileInput">
+    <input type="file" id="fileInput" accept="image/*,video/*" multiple>
     <div id="gallery"></div>
   </div>
 
-  <!-- NOTE -->
+  <!-- SWEET WORDS -->
   <div id="note" class="screen">
     <h2> A Sweet Message</h2>
-    <p class="message">
+    <div class="message">
       Daniella,<br><br>
       I just want you to know how much I love and appreciate you as a friend. <br>
-      Thank you for always being there, for listening, and for making my life brighter.<br>
-      You’ve healed me in ways I can’t even explain. <br>
+      Thank you for always being there, listening, and making my life brighter.<br>
+      You’ve healed me in ways I can’t explain. <br>
       I can’t imagine life without our friendship. You are the best friend I could ever ask for.<br><br>
       — <strong>Lewis</strong>
-    </p>
+    </div>
   </div>
 
-  <!-- NAVIGATION BAR -->
+  <!-- NAVIGATION -->
   <div class="nav">
     <button onclick="show('home')"></button>
     <button onclick="show('memories')"></button>
     <button onclick="show('note')"></button>
   </div>
 
-  <!-- FLOATING BALLOONS & FLOWERS -->
+  <!-- BALLOONS & FLOWERS -->
   <div class="animations"></div>
 
 </div>
