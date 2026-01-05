@@ -15,18 +15,8 @@ body {
 }
 h1,h3{color:#ffb3ff;}
 .box{max-width:900px;margin:auto;padding:20px;}
-button,input{padding:10px;border-radius:10px;border:none;margin:6px;font-size:16px;}
-button{background:#b266ff;color:white;font-weight:bold;cursor:pointer;}
+button{padding:10px;border-radius:10px;border:none;margin:6px;font-size:16px;background:#b266ff;color:white;font-weight:bold;cursor:pointer;}
 .hidden{display:none;}
-
-/* Gallery */
-.gallery{display:flex;flex-wrap:wrap;gap:18px;justify-content:center;margin-top:20px;}
-.card{max-width:200px;position:relative;}
-.card img, .card video{width:100%;border-radius:12px;}
-.label{position:absolute;bottom:4px;left:4px;background:rgba(0,0,0,0.6);padding:3px 6px;border-radius:8px;font-size:14px;}
-
-/* Caption */
-#captionInput{width:90%;padding:8px;margin-bottom:10px;border-radius:8px;border:none;font-size:16px;}
 
 /* Balloons & Flowers */
 .balloon, .flower{position:absolute;width:40px;height:60px;border-radius:50%;animation:float 6s linear infinite;z-index:-1;}
@@ -39,10 +29,9 @@ button{background:#b266ff;color:white;font-weight:bold;cursor:pointer;}
 #envelope{width:120px;height:80px;background:#ffb3ff;border-radius:8px;position:relative;cursor:pointer;margin-top:20px;display:flex;align-items:center;justify-content:center;flex-direction:column;}
 #letter{display:none;width:80%;max-width:400px;background:white;color:black;padding:16px;border-radius:12px;margin-top:20px;text-align:left;font-size:16px;}
 
-/* Daniella Section */
-#daniella-section{display:flex;flex-wrap:wrap;justify-content:center;margin-top:20px;align-items:center;gap:12px;}
-.daniella-pic{max-width:150px;border-radius:12px;}
-.daniella-sweet{max-width:250px;text-align:left;font-size:16px;color:#ffb3ff;}
+/* Appreciation Sections */
+#app{margin-top:20px;}
+.app-section{background:rgba(0,0,0,0.3);padding:16px;border-radius:12px;margin:12px auto;max-width:500px;font-size:16px;color:#ffb3ff;}
 </style>
 </head>
 <body>
@@ -70,52 +59,18 @@ button{background:#b266ff;color:white;font-weight:bold;cursor:pointer;}
 </div>
 
 <!-- APP -->
-<div id="app" class="box hidden">
+<div id="app" class="hidden">
 <h1>Lewis & Daniella </h1>
 
-<select id="user">
-<option>Lewis</option>
-<option>Daniella</option>
-</select><br>
-
-<!-- Caption for uploads -->
-<input id="captionInput" type="text" placeholder="Add a caption to your photo/video...">
-
-<!-- Upload Buttons -->
-<h3>Upload Photos of Both</h3>
-<input type="file" id="photoFiles" multiple accept="image/*" hidden>
-<button onclick="photoFiles.click()"> Upload Photo</button>
-
-<h3>Upload Videos</h3>
-<input type="file" id="videoFiles" multiple accept="video/*" hidden>
-<button onclick="videoFiles.click()"> Upload Video</button>
-
-<!-- Gallery -->
-<div id="gallery" class="gallery"></div>
-
-<!-- Daniella Pictures + Sweet Words -->
-<h3> Daniella & Sweet Words</h3>
-<div id="daniella-section">
-  <img src="https://via.placeholder.com/150x150.png?text=Daniella+1" class="daniella-pic">
-  <div class="daniella-sweet">
-    I appreciate you  — by Lewis
-  </div>
-  <img src="https://via.placeholder.com/150x150.png?text=Daniella+2" class="daniella-pic">
-  <div class="daniella-sweet">
-    I appreciate you  — by Lewis
-  </div>
+<div class="app-section">
+I value our friendship so much. It’s sad I couldn’t upload photos … love u though … you’re one of a kind Daniella. I’m lucky I have u — by Lewis
 </div>
 
 </div>
 
 <script>
 // DOM
-const gallery=document.getElementById("gallery");
 const app=document.getElementById("app");
-const user=document.getElementById("user");
-const photoFiles=document.getElementById("photoFiles");
-const videoFiles=document.getElementById("videoFiles");
-const captionInput=document.getElementById("captionInput");
 const surprise=document.getElementById("surprise");
 const envelope=document.getElementById("envelope");
 const letter=document.getElementById("letter");
@@ -132,51 +87,6 @@ function unlock(){
         createFlowers();
         createFireworks();
     } else alert("Wrong code ");
-}
-
-// Upload Photos
-photoFiles.onchange = e => {
-  [...e.target.files].forEach(file => { addToGallery(file); });
-};
-
-// Upload Videos
-videoFiles.onchange = e => {
-  [...e.target.files].forEach(file => { addToGallery(file, true); });
-};
-
-// Add media to gallery
-function addToGallery(file, isVideo=false){
-    const url = URL.createObjectURL(file);
-    const card = document.createElement("div");
-    card.className = "card";
-
-    const media = isVideo ? Object.assign(document.createElement("video"), {src: url, controls: true}) : Object.assign(document.createElement("img"), {src: url});
-    const label = document.createElement("div");
-    label.className = "label";
-    label.innerText = user.value;
-
-    // Caption
-    const caption = captionInput.value.trim();
-    if(caption){
-        const capDiv=document.createElement("div");
-        capDiv.style.fontSize="16px";
-        capDiv.style.color="#ffb3ff";
-        capDiv.style.marginTop="4px";
-        capDiv.innerText = caption;
-        card.append(capDiv);
-        captionInput.value="";
-    }
-
-    card.append(media, label);
-    gallery.appendChild(card);
-
-    // Auto-download
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = file.name;
-    link.click();
-
-    createFireworks();
 }
 
 // Envelope + Letter
