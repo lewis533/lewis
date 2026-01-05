@@ -1,46 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Lewis & Daniella 💜</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#4b0082">
-
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
 <style>
-body{margin:0;background:linear-gradient(135deg,#1a0033,#4b0082);font-family:Arial;color:white;text-align:center;overflow-x:hidden;}
-.hidden{display:none}
-h1,h3{color:#ffb3ff}
-.box{max-width:900px;margin:auto;padding:20px}
-button,input,select,textarea{padding:10px;border-radius:10px;border:none;margin:6px;font-size:16px;}
-button{background:#b266ff;color:white;font-weight:bold;cursor:pointer}
+body {
+  margin:0;
+  font-family: Arial;
+  background: linear-gradient(135deg,#1a0033,#4b0082);
+  color:white;
+  text-align:center;
+  overflow-x:hidden;
+}
+h1,h3{color:#ffb3ff;}
+.box{max-width:900px;margin:auto;padding:20px;}
+button,input{padding:10px;border-radius:10px;border:none;margin:6px;font-size:16px;}
+button{background:#b266ff;color:white;font-weight:bold;cursor:pointer;}
+.hidden{display:none;}
 
 /* Gallery */
-.gallery{display:flex;flex-wrap:wrap;gap:18px;justify-content:center}
-.card{max-width:200px;position:relative}
-img,video{max-width:200px;border-radius:12px}
-.delete{position:absolute;top:4px;right:4px;background:rgba(0,0,0,.6);border-radius:50%;padding:4px 7px;cursor:pointer}
-.label{position:absolute;bottom:4px;left:4px;background:rgba(0,0,0,.6);padding:3px 6px;border-radius:8px;font-size:14px}
-.reacts{display:flex;justify-content:center;gap:6px;margin-top:4px}
+.gallery{display:flex;flex-wrap:wrap;gap:18px;justify-content:center;margin-top:20px;}
+.card{max-width:200px;position:relative;}
+.card img, .card video{width:100%;border-radius:12px;}
+.label{position:absolute;bottom:4px;left:4px;background:rgba(0,0,0,0.6);padding:3px 6px;border-radius:8px;font-size:14px;}
 
-/* CAPTION / SWEET WORDS */
-#captionInput,#sweetWordsInput{width:90%;padding:8px;margin-bottom:10px;border-radius:8px;border:none;font-size:16px}
+/* Caption */
+#captionInput{width:90%;padding:8px;margin-bottom:10px;border-radius:8px;border:none;font-size:16px;}
 
-/* BALLOONS */
-.balloon{position:absolute;width:40px;height:60px;border-radius:50%;animation:float 6s linear infinite;z-index:-1;}
+/* Balloons & Flowers */
+.balloon, .flower{position:absolute;width:40px;height:60px;border-radius:50%;animation:float 6s linear infinite;z-index:-1;}
 .balloon:after{content:"";position:absolute;width:2px;height:20px;background:#000;left:50%;bottom:-20px;}
+.flower{background: url('https://i.imgur.com/ZnQxkK2.png') no-repeat center/contain;width:40px;height:40px;}
 @keyframes float{0%{transform:translateY(0)}100%{transform:translateY(-600px)}}
 
-/* SURPRISE LETTER */
-#surprise{position:fixed;top:0;left:0;width:100%;height:100%;background:black;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;color:white;font-size:20px;text-align:center;}
-#fireworksContainer{position:absolute;width:100%;height:100%;top:0;left:0;z-index:-1;}
+/* Envelope + letter */
+#surprise{position:fixed;top:0;left:0;width:100%;height:100%;background:black;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;color:white;text-align:center;}
 #envelope{width:120px;height:80px;background:#ffb3ff;border-radius:8px;position:relative;cursor:pointer;margin-top:20px;display:flex;align-items:center;justify-content:center;flex-direction:column;}
 #letter{display:none;width:80%;max-width:400px;background:white;color:black;padding:16px;border-radius:12px;margin-top:20px;text-align:left;font-size:16px;}
+
+/* Daniella Section */
+#daniella-section{display:flex;flex-wrap:wrap;justify-content:center;margin-top:20px;align-items:center;gap:12px;}
+.daniella-pic{max-width:150px;border-radius:12px;}
+.daniella-sweet{max-width:250px;text-align:left;font-size:16px;color:#ffb3ff;}
 </style>
 </head>
 <body>
@@ -62,7 +64,8 @@ img,video{max-width:200px;border-radius:12px}
     </div>
     <div id="letter">
         <p>Dear Daniella,</p>
-        <p>I just want to say… thank you for being the most amazing friend I could ever ask for. I truly appreciate you and I love you so much. You’ve healed me and made me happier than I ever imagined. 💜</p>
+        <p>Even though we haven’t met in person, your friendship means the world to me. I truly appreciate all the moments, chats, and laughs we’ve shared online. 💜</p>
+        <p>You’ve made a huge difference in my life, and I love having you as my friend.</p>
         <p>— Lewis</p>
         <button onclick="closeLetter()">Close</button>
     </div>
@@ -71,20 +74,11 @@ img,video{max-width:200px;border-radius:12px}
 <!-- APP -->
 <div id="app" class="box hidden">
 <h1>Lewis & Daniella 💜</h1>
-<h3 id="counter"></h3>
 
 <select id="user">
 <option>Lewis</option>
 <option>Daniella</option>
 </select><br>
-
-<!-- Sweet Words -->
-<div>
-<h3>💌 Sweet Words</h3>
-<textarea id="sweetWordsInput" placeholder="Write something sweet..." rows="2"></textarea>
-<button onclick="postSweetWords()">Send 💜</button>
-<div id="sweetWordsDisplay" style="margin-top:10px;"></div>
-</div>
 
 <!-- Caption for uploads -->
 <input id="captionInput" type="text" placeholder="Add a caption to your photo/video...">
@@ -100,37 +94,34 @@ img,video{max-width:200px;border-radius:12px}
 
 <!-- Gallery -->
 <div id="gallery" class="gallery"></div>
+
+<!-- Daniella Pictures + Sweet Words -->
+<h3>💜 Daniella & Sweet Words</h3>
+<div id="daniella-section">
+  <img src="https://via.placeholder.com/150x150.png?text=Daniella+1" class="daniella-pic">
+  <div class="daniella-sweet">
+    Even online, your friendship lights up my days. Thank you for always being so supportive. 💜
+  </div>
+  <img src="https://via.placeholder.com/150x150.png?text=Daniella+2" class="daniella-pic">
+  <div class="daniella-sweet">
+    I love our chats and laughs. You make the distance feel so small! 🌸
+  </div>
+</div>
+
 </div>
 
 <script>
-// Firebase config
-const firebaseConfig={
-apiKey:"PASTE_HERE",
-authDomain:"PASTE_HERE",
-projectId:"PASTE_HERE",
-storageBucket:"PASTE_HERE",
-messagingSenderId:"PASTE_HERE",
-appId:"PASTE_HERE"
-};
-firebase.initializeApp(firebaseConfig);
-const storage=firebase.storage();
-const db=firebase.firestore();
-db.enablePersistence();
-
 // DOM
 const gallery=document.getElementById("gallery");
-const counter=document.getElementById("counter");
-const code=document.getElementById("code");
 const app=document.getElementById("app");
 const user=document.getElementById("user");
 const photoFiles=document.getElementById("photoFiles");
 const videoFiles=document.getElementById("videoFiles");
 const captionInput=document.getElementById("captionInput");
-const sweetWordsInput=document.getElementById("sweetWordsInput");
-const sweetWordsDisplay=document.getElementById("sweetWordsDisplay");
 const surprise=document.getElementById("surprise");
 const envelope=document.getElementById("envelope");
 const letter=document.getElementById("letter");
+const code=document.getElementById("code");
 
 // PASSCODE
 const SECRET="Daniella";
@@ -138,90 +129,57 @@ function unlock(){
     if(code.value===SECRET){
         document.getElementById("lock").style.display="none";
         app.classList.remove("hidden");
-        Notification.requestPermission();
         surprise.style.display="flex";
         createBalloons();
+        createFlowers();
         createFireworks();
     } else alert("Wrong code 💔");
 }
 
-// Friendship counter
-const start=new Date("2024-01-01");
-setInterval(()=>{
-    const days=Math.floor((Date.now()-start)/86400000);
-    counter.innerText=`💜 Friendship: ${days} days`;
-},1000);
+// Upload Photos
+photoFiles.onchange = e => {
+  [...e.target.files].forEach(file => { addToGallery(file); });
+};
 
-// Upload function
-function uploadMedia(file){
-    const name=user.value;
-    const captionText=captionInput.value||"";
-    const typeCategory=file.type.startsWith("video")?"video":"photo";
+// Upload Videos
+videoFiles.onchange = e => {
+  [...e.target.files].forEach(file => { addToGallery(file, true); });
+};
 
-    const ref=storage.ref("memories/"+Date.now()+"_"+file.name);
-    ref.put(file).then(s=>s.ref.getDownloadURL())
-    .then(url=>{
-        db.collection("uploads").add({
-            url,
-            type:file.type,
-            user:name,
-            path:ref.fullPath,
-            reacts:{},
-            caption:captionText
-        });
+// Add media to gallery
+function addToGallery(file, isVideo=false){
+    const url = URL.createObjectURL(file);
+    const card = document.createElement("div");
+    card.className = "card";
 
-        // Save to device
-        const link=document.createElement("a");
-        link.href=url;
-        link.download=file.name;
-        link.click();
-
-        captionInput.value="";
-        if(Notification.permission==="granted"){
-            new Notification("💜 New Memory",{body:`${name} uploaded a ${typeCategory}`});
-        }
-        createFireworks();
-    });
-}
-
-// Link inputs
-photoFiles.onchange=e=>[...e.target.files].forEach(uploadMedia);
-videoFiles.onchange=e=>[...e.target.files].forEach(uploadMedia);
-
-// Gallery display
-function show(doc){
-    const d=doc.data();
-    const card=document.createElement("div");card.className="card";
-    const media=d.type.startsWith("video")?Object.assign(document.createElement("video"),{src:d.url,controls:true}):Object.assign(document.createElement("img"),{src:d.url});
-
-    const del=document.createElement("div");del.className="delete";del.innerText="🗑️";
-    del.onclick=()=>{storage.ref(d.path).delete();db.collection("uploads").doc(doc.id).delete();};
-
-    const label=document.createElement("div");label.className="label";label.innerText=d.user;
+    const media = isVideo ? Object.assign(document.createElement("video"), {src: url, controls: true}) : Object.assign(document.createElement("img"), {src: url});
+    const label = document.createElement("div");
+    label.className = "label";
+    label.innerText = user.value;
 
     // Caption
-    if(d.caption){
-        const captionDiv=document.createElement("div");
-        captionDiv.style.fontSize="16px";
-        captionDiv.style.color="#ffb3ff";
-        captionDiv.style.marginTop="4px";
-        captionDiv.innerText=d.caption;
-        card.appendChild(captionDiv);
+    const caption = captionInput.value.trim();
+    if(caption){
+        const capDiv=document.createElement("div");
+        capDiv.style.fontSize="16px";
+        capDiv.style.color="#ffb3ff";
+        capDiv.style.marginTop="4px";
+        capDiv.innerText = caption;
+        card.append(capDiv);
+        captionInput.value="";
     }
 
+    card.append(media, label);
     gallery.appendChild(card);
-    card.append(media,del,label);
+
+    // Auto-download
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = file.name;
+    link.click();
+
+    createFireworks();
 }
-
-// Firestore snapshot
-db.collection("uploads").onSnapshot(s=>{gallery.innerHTML="";s.forEach(show);});
-
-// Sweet words
-function postSweetWords(){const text=sweetWordsInput.value.trim();if(!text)return;db.collection("sweetWords").add({user:user.value,text,time:Date.now()});sweetWordsInput.value="";}
-db.collection("sweetWords").orderBy("time").onSnapshot(s=>{
-    sweetWordsDisplay.innerHTML="";
-    s.forEach(d=>{const div=document.createElement("div");div.innerText=`${d.data().user}: ${d.data().text}`;sweetWordsDisplay.appendChild(div);});
-});
 
 // Envelope + Letter
 envelope.onclick=()=>{envelope.style.display="none";letter.style.display="block";}
@@ -231,25 +189,47 @@ function closeLetter(){surprise.style.display="none";createFireworks();}
 function createBalloons(){
     const colors=["#ff4d6d","#ffb3ff","#ffdf80","#b3d9ff"];
     for(let i=0;i<8;i++){
-        const b=document.createElement("div");b.className="balloon";b.style.background=colors[Math.floor(Math.random()*colors.length)];
-        b.style.left=Math.random()*window.innerWidth+"px";b.style.animationDuration=4+Math.random()*4+"s";document.body.appendChild(b);
+        const b=document.createElement("div");
+        b.className="balloon";
+        b.style.background=colors[Math.floor(Math.random()*colors.length)];
+        b.style.left=Math.random()*window.innerWidth+"px";
+        b.style.animationDuration=4+Math.random()*4+"s";
+        document.body.appendChild(b);
     }
 }
-setInterval(createBalloons,5000);
-createBalloons();
+
+// Flowers
+function createFlowers(){
+    for(let i=0;i<6;i++){
+        const f=document.createElement("div");
+        f.className="flower";
+        f.style.left=Math.random()*window.innerWidth+"px";
+        f.style.top=(window.innerHeight + Math.random()*100)+"px";
+        f.style.animationDuration=5+Math.random()*3+"s";
+        document.body.appendChild(f);
+    }
+}
 
 // Fireworks
 function createFireworks(){
-    const fw=document.createElement("div");
-    fw.innerText="🎆🎇✨";
-    fw.style.position="fixed";
-    fw.style.top=Math.random()*80+"%";
-    fw.style.left=Math.random()*80+"%";
-    fw.style.fontSize="30px";
-    document.body.appendChild(fw);
-    setTimeout(()=>fw.remove(),1500);
+    for(let i=0;i<3;i++){
+        const fw=document.createElement("div");
+        fw.innerText="🎆🎇✨";
+        fw.style.position="fixed";
+        fw.style.top=Math.random()*80+"%";
+        fw.style.left=Math.random()*80+"%";
+        fw.style.fontSize=20+Math.random()*20+"px";
+        document.body.appendChild(fw);
+        setTimeout(()=>fw.remove(),1500);
+    }
 }
+
+setInterval(createBalloons,5000);
+setInterval(createFlowers,6000);
 setInterval(createFireworks,800);
+createBalloons();
+createFlowers();
+createFireworks();
 </script>
 </body>
 </html>
